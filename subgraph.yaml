@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ShahbazToken
+    network: ropsten
+    source:
+      address: "0xD9d51676229820FD64AA906F8a72D03EA8D962f5"
+      abi: ShahbazToken
+      startBlock: 10809415 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Balance
+      abis:
+        - name: ShahbazToken
+          file: ./abis/ShahbazToken.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
